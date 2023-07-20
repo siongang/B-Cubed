@@ -153,6 +153,26 @@ print(translate("how to go from bc to toronto"))
 
 
 
+# Get the estimated arrival time of the bus
+def getBusArrival(bus_stop):
+    directions = getDirections(origin, destination)
+    if directions:
+        for step in directions[0]['legs'][0]['steps']:
+            if step['travel_mode'] == 'TRANSIT' and step['transit_details']['arrival_stop']['name'] == bus_stop:
+                return step['transit_details']['arrival_time']['text']
+    return 'Bus arrival time not found.'
+
+
+
+
+# PROMPTS
+print('Hi, how are you!')
+print('commands: directions, bus arrival, bus departure, general')
+userInput = input('type the command')
+
+if userInput == 'directions':
+    constructor()
+    print(f'to go from {origin} to {destination}...\n {way}')
 
 # print('I will list a series of potential question that you may want to ask so please repeat when I list the final item\n')
 
