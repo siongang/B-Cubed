@@ -2,7 +2,15 @@ import os
 import openai
 import json
 
-openai.api_key = "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"
+
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the API key from the environment variable
+openai_key = os.getenv("OPENAI_KEY")
+
+openai.api_key = openai_key
 
 # list models
 models = openai.Model.list()

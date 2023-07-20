@@ -1,10 +1,20 @@
 import googlemaps
 import re
+import os
+from dotenv import load_dotenv
+
 from datetime import datetime
 
 import prompt
 
-gmaps = googlemaps.Client(key='AIzaSyAO4RHdC1cwGIBcURxvavRkt--wGz3RMqU')
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the API key from the environment variable
+maps_key = os.getenv("MAPS_KEY")
+
+
+gmaps = googlemaps.Client(key=maps_key)
 
 def removeHtmlTags(text):
     text = text.replace('<b>','')
@@ -135,15 +145,13 @@ while True:
     #                                 print('hi')
 
     #                         )
-
+    break
 
     
 
 
-
-print(translate("how to go from bc to toronto"))
-
-
+constructor()
+print(prompt.translate("how to go from bc to toronto"))
 
 
 
@@ -152,27 +160,14 @@ print(translate("how to go from bc to toronto"))
 
 
 
+# # PROMPTS
+# print('Hi, how are you!')
+# print('commands: directions, bus arrival, bus departure, general')
+# userInput = input('type the command')
 
-# Get the estimated arrival time of the bus
-def getBusArrival(bus_stop):
-    directions = getDirections(origin, destination)
-    if directions:
-        for step in directions[0]['legs'][0]['steps']:
-            if step['travel_mode'] == 'TRANSIT' and step['transit_details']['arrival_stop']['name'] == bus_stop:
-                return step['transit_details']['arrival_time']['text']
-    return 'Bus arrival time not found.'
-
-
-
-
-# PROMPTS
-print('Hi, how are you!')
-print('commands: directions, bus arrival, bus departure, general')
-userInput = input('type the command')
-
-if userInput == 'directions':
-    constructor()
-    print(f'to go from {origin} to {destination}...\n {way}')
+# if userInput == 'directions':
+#     constructor()
+#     print(f'to go from {origin} to {destination}...\n {way}')
 
 # print('I will list a series of potential question that you may want to ask so please repeat when I list the final item\n')
 
