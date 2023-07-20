@@ -126,15 +126,15 @@ while True:
     userInput = input('ask me a question!')
     translatedValue = prompt.translate(userInput)
 
-    if (questionType == 'directions'):
-        origin = translatedValue['keywords']['location_1']
-        destination = translatedValue['keywords']['location_2']
-        constructor()
-        locationsCounts = sum (1 for key in keywords:   
-                                if 'location' in key:
-                                    print('hi')
+    # if (questionType == 'directions'):
+    #     origin = translatedValue['keywords']['location_1']
+    #     destination = translatedValue['keywords']['location_2']
+    #     constructor()
+    #     locationsCounts = sum (1 for key in keywords:   
+    #                             if 'location' in key:
+    #                                 print('hi')
 
-                            )
+    #                         )
 
 
     
