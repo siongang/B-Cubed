@@ -130,13 +130,11 @@ while True:
         origin = translatedValue['keywords']['location_1']
         destination = translatedValue['keywords']['location_2']
         constructor()
-        locationsCounts = sum (1 for key in keywords:
+        locationsCounts = sum (1 for key in keywords:   
                                 if 'location' in key:
                                     print('hi')
 
                             )
-
-
 
 
     
@@ -144,6 +142,9 @@ while True:
 
 
 print(translate("how to go from bc to toronto"))
+
+
+
 
 
 
