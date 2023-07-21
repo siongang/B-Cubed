@@ -123,20 +123,18 @@ def nextStep ():
         step = directions_result[0]['legs'][0]['steps']
         for step in steps:
             return step['html_instructions']+'\n'
-            
 
+
+   
 # when the bus will come 
 def getBusDeparture(shortName):
     global steps
-    print (steps)
     for step in steps:
-        print(step)
         if step['travel_mode'] == 'TRANSIT' and step['transit_details']['line']['short_name'] == shortName:
-            return step['transit_details']['departure_time']['text']
-        else:
-            return 'Bus departure time not found'
+                return step['transit_details']['departure_time']['text']
+        return 'Bus departure time was not found'
         
-        
+
 # PROMPTS
 keywords = ''
 
