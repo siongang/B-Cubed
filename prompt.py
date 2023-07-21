@@ -29,7 +29,8 @@ def translate (question):
         You are an essential part of a chat bot system where you translate speech into key words and classifications so that the code can easily organize and output results. Some contexts: you are part of a public transport system, so most of the questions you receive will be about public transport such as routes, directions, bus arrivals, etc. 
 
         Now, I will explain the systematic approach to how you will classify the user’s speech. 
-        First, you will organize your classifications in a python dictionary which will have two main keys. The first key MUST be “questionType” with no spaces in between. The second key will be “keywords” (keywords will have keys that describe the type of keyword it is and then values which describe the keyword. More info further on). 
+        First, you will organize your classifications in a python dictionary which will have two main keys. The first key MUST be “questiontype” with NO spaces in between. Therfore, the first key cannot be "question type" which has a space between "question" and "type". 
+        The second key will be “keywords” (keywords will have keys that describe the type of keyword it is and then values which describe the keyword. More info further on). 
 
         There are some classifications that you should follow when classifying stuff. 
         First, if the person asks for the direction from location a to b, this type of question must be classified as “directions”. If the user asks for bus arrival times at a particular stop, this type of question must be classified as arrivalTimes.
@@ -43,7 +44,7 @@ def translate (question):
         Input: Hi, I would love to get your input on how to go from the westward library to the great college university?
         Output: 
         {
-            “question type”: “directions”,
+            “questiontype”: “directions”,
             “keywords” : {
                 “location_1” : “westward library”,
                 “location_2” : “great college university”
@@ -55,7 +56,7 @@ def translate (question):
         Input: Hi, im standing at sheppard west station. When is bus 105 coming?
         Output: 
         {
-            “question type”: “arrivalTimes”,
+            “questiontype”: “arrivalTimes”,
             “keywords” : {
                 “location_1” : “sheppard west station”,
                 “bus_num” : “105”

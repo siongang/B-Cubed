@@ -2,9 +2,7 @@ import googlemaps
 import re
 import os
 from dotenv import load_dotenv
-
 from datetime import datetime
-
 import prompt
 
 # Load environment variables from .env file
@@ -13,7 +11,7 @@ load_dotenv()
 # Access the API key from the environment variable
 maps_key = os.getenv("MAPS_KEY")
 
-
+print(maps_key)
 gmaps = googlemaps.Client(key=maps_key)
 
 def removeHtmlTags(text):
@@ -26,7 +24,7 @@ def removeHtmlTags(text):
 
 
 # parameters to find directions
-mode = 'transit'
+transport = 'transit'
 origin = 'sheppard west station'
 destination = ''
 
@@ -36,11 +34,13 @@ directions_result = ''
 # current time
 now = datetime.now()
 
+
+
 # Request directions from the API THE MOST IMPORTANT PART OF THE PROGRAM
 def setDirectionsResult(start, end):
     global directions_result
-    global mode
-    return gmaps.directions(start, end,mode,departure_time=now)
+    global transport
+    return gmaps.directions(start, end,mode=transport,departure_time=now)
 
 
 # INITIALIZING VARIABLES
@@ -83,7 +83,7 @@ def generalRoute ():
     else:
         way = 'No directions found.'
     way = removeHtmlTags(way)
-
+    
 
 
 # constructor
@@ -93,9 +93,14 @@ def constructor():
     global departureTime
     global steps
     global directions_result 
+    global way
+    way = ''
+    print("origin " + origin)
+    print("destination "+ str(destination))
 
     # main directions result
     directions_result = setDirectionsResult(origin, destination)
+    print(directions_result)
     # connects to map api
     setDirectionsResult(origin,destination)
     # duration of the route
@@ -107,13 +112,15 @@ def constructor():
     # steps
     steps = directions_result[0]['legs'][0]['steps']
     generalRoute()
+    # print (duration )
+
 
 
 def nextStep ():
-    directions_result = gmaps.directions(origin, destination, mode,departure_time=now)
-    step = directions_result[0]['legs'][0]['steps']
-    for step in steps:
-        return step['html_instructions']+'\n'
+        directions_result = gmaps.directions(origin, destination, mode=transport,departure_time=now)
+        step = directions_result[0]['legs'][0]['steps']
+        for step in steps:
+            return step['html_instructions']+'\n'
             
 
 # when the bus will come 
@@ -125,33 +132,39 @@ def getBusDeparture(shortName):
         else:
             return 'Bus departure time not found'
         
-
-
+        
 # PROMPTS
-
-questionType = ''
 keywords = ''
+
 while True:
     print('Hi, how are you!')
     userInput = input('ask me a question!')
     translatedValue = prompt.translate(userInput)
 
-    # if (questionType == 'directions'):
-    #     origin = translatedValue['keywords']['location_1']
-    #     destination = translatedValue['keywords']['location_2']
-    #     constructor()
-    #     locationsCounts = sum (1 for key in keywords:   
-    #                             if 'location' in key:
-    #                                 print('hi')
+    # counter of all the different locations the user is asking about
+    locationCounter = 0
 
-    #                         )
-    break
+    # The type of question the user is asking
+    questionType = translatedValue['questiontype']
+
+    # how many locations did the user input?
+    for key, value in translatedValue['keywords'].items(): 
+        if 'location' in key:
+            locationCounter+=1
+
+    # If user is asking for directions
+    if (questionType == 'directions'):
+        origin = translatedValue['keywords']['location_1']
+        destination = translatedValue['keywords']['location_2']
+        constructor()
+        print(way)
+                 
+    if userInput == "exit":
+        break
 
     
 
 
-constructor()
-print(prompt.translate("how to go from bc to toronto"))
 
 
 
@@ -200,7 +213,6 @@ print(prompt.translate("how to go from bc to toronto"))
 # when will the next bus arrive to the bus stop?
 
 
-print('next step'+str(nextStep()))
 
 
 
