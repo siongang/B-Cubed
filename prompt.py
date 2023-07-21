@@ -67,7 +67,7 @@ def translate (question):
 
         Some extra specifications: 
                                                                                             
-        Example 1) 
+        Specification 1) 
         For keyword classifcation, more specifically locations, the word "in" such as location b in location c, means that location b is inside location c. So do not consider location c as a new
         location but rather location b as the target location.  For example...
                                                                                             
@@ -77,7 +77,7 @@ def translate (question):
         Instructions: Like i said, "university of waterloo would not be a 3rd location as it is simply a piece of helping info that simply gives more context to EV-2 building. It is not important to you though.
 
 
-        Example 2)
+        Specification 2)
         There is bound to be a lot of extra/misleading, or redundant information in user input. You must be able to link and decide which info is the KEYWORD. For example...
                                                                                             
         Input:"My friend is going on the 90 bus. I am going on the 70 bus. the 90 bus is going to university of waterloo. the 70 bus is going to university of toronto. Tell me when my friend's bus is coming.
@@ -87,8 +87,11 @@ def translate (question):
         get keywords, search for them within the context of the friend. For example, in the beginning, it says "My friend is going on the 90 bus". Therfore, 90 bus is significant as it relates to the friend and the bus numbers is an essential piece of info
         for bus navigation routes. So the keywords should be "bus_num":90 AND "location_1":"university of waterloo".
                                                                                                                                                                                         
+        Specification 3)
+        Instruction: Always follow logical coding. for example, when listing elements, list them starting with 1... -> for example, do not start locations by location_2:"asdfa". Start the list of locations with location_1:"asdfas"
+                                                                                          
 
-                                                                                                                    
+                                                                                  
         With all of this in mind, please follow the steps that I stated above and give an output for this following input: 
 
 

@@ -45,10 +45,12 @@ def setDirectionsResult(start, end):
 
 # INITIALIZING VARIABLES
 # current location
-currentLocation = 'Keele St / Steeles Av'
+originalBusStop = '82 Pantano Drive, Thornhill, Ontario'
 
 # the steps of the route
 way = "" 
+
+  
 
 # duration of the route
 duration = ''
@@ -69,8 +71,8 @@ steps = ''
 
 # different flow from the locatioin
 def setCurrentLocation(location):
-    global currentLocation
-    currentLocation = location
+    global originalBusStop
+    originalBusStop = location
 
 # sets the 'way' variable to the steps 
 def generalRoute (): 
@@ -97,12 +99,12 @@ def constructor():
     way = ''
     print("origin " + origin)
     print("destination "+ str(destination))
-
     # main directions result
     directions_result = setDirectionsResult(origin, destination)
-    print(directions_result)
     # connects to map api
     setDirectionsResult(origin,destination)
+
+    print
     # duration of the route
     duration = directions_result[0]['legs'][0]['duration']['text']
     # estimated arival time of the route
@@ -126,7 +128,9 @@ def nextStep ():
 # when the bus will come 
 def getBusDeparture(shortName):
     global steps
+    print (steps)
     for step in steps:
+        print(step)
         if step['travel_mode'] == 'TRANSIT' and step['transit_details']['line']['short_name'] == shortName:
             return step['transit_details']['departure_time']['text']
         else:
@@ -137,15 +141,22 @@ def getBusDeparture(shortName):
 keywords = ''
 
 while True:
+    # user input
     print('Hi, how are you!')
     userInput = input('ask me a question!')
+
+    # json file type
     translatedValue = prompt.translate(userInput)
+
+    print(translatedValue)
 
     # counter of all the different locations the user is asking about
     locationCounter = 0
 
     # The type of question the user is asking
     questionType = translatedValue['questiontype']
+
+    print("question type is " + questionType)
 
     # how many locations did the user input?
     for key, value in translatedValue['keywords'].items(): 
@@ -159,9 +170,24 @@ while True:
         constructor()
         print(way)
                  
+
+
+    if questionType == "arrivalTimes":
+        print('we are in arrival time')
+        origin = originalBusStop
+        destination = translatedValue['keywords']['location_1']
+        name = translatedValue['keywords']['bus_num']
+
+        print("origin "+origin)
+        print("destination "+destination)
+        print("name "+name)
+
+        constructor()
+        print(way)
+        print(getBusDeparture(name))
+
     if userInput == "exit":
         break
-
     
 
 
