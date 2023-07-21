@@ -14,27 +14,16 @@ maps_key = os.getenv("MAPS_KEY")
 print(maps_key)
 gmaps = googlemaps.Client(key=maps_key)
 
-def removeHtmlTags(text):
-    text = text.replace('<b>','')
-    text = text.replace('</b>','')
-    text = text.replace('<wbr>','')
-    text = text.replace('<wbr/>','')
-    text = text.replace('<b>','')
-    return text
-
-
 # parameters to find directions
 transport = 'transit'
 origin = 'sheppard west station'
 destination = ''
 
+# the dictionary that contains all the information about the route
 directions_result = ''
-
 
 # current time
 now = datetime.now()
-
-
 
 # Request directions from the API THE MOST IMPORTANT PART OF THE PROGRAM
 def setDirectionsResult(start, end):
@@ -49,8 +38,6 @@ originalBusStop = '82 Pantano Drive, Thornhill, Ontario'
 
 # the steps of the route
 way = "" 
-
-  
 
 # duration of the route
 duration = ''
@@ -67,7 +54,7 @@ nextStep = ''
 # steps
 steps = ''
 
-# SETTER FUNCTIONS
+# FUNCTIONS
 
 # different flow from the locatioin
 def setCurrentLocation(location):
@@ -97,14 +84,12 @@ def constructor():
     global directions_result 
     global way
     way = ''
-    print("origin " + origin)
-    print("destination "+ str(destination))
+
     # main directions result
     directions_result = setDirectionsResult(origin, destination)
     # connects to map api
     setDirectionsResult(origin,destination)
 
-    print
     # duration of the route
     duration = directions_result[0]['legs'][0]['duration']['text']
     # estimated arival time of the route
@@ -114,8 +99,6 @@ def constructor():
     # steps
     steps = directions_result[0]['legs'][0]['steps']
     generalRoute()
-    # print (duration )
-
 
 
 def nextStep ():
@@ -145,16 +128,13 @@ while True:
 
     # json file type
     translatedValue = prompt.translate(userInput)
-
-    print(translatedValue)
+    # print(translatedValue)
 
     # counter of all the different locations the user is asking about
     locationCounter = 0
 
     # The type of question the user is asking
     questionType = translatedValue['questiontype']
-
-    print("question type is " + questionType)
 
     # how many locations did the user input?
     for key, value in translatedValue['keywords'].items(): 
@@ -167,23 +147,16 @@ while True:
         destination = translatedValue['keywords']['location_2']
         constructor()
         print(way)
-                 
 
-
+    # if user is asking for bus arrial timees             
     if questionType == "arrivalTimes":
-        print('we are in arrival time')
         origin = originalBusStop
         destination = translatedValue['keywords']['location_1']
         name = translatedValue['keywords']['bus_num']
-
-        print("origin "+origin)
-        print("destination "+destination)
-        print("name "+name)
-
         constructor()
-        print(way)
         print(getBusDeparture(name))
 
+    # use exits
     if userInput == "exit":
         break
     
@@ -192,76 +165,13 @@ while True:
 
 
 
+# removes unnecessary tags
+def removeHtmlTags(text):
+    text = text.replace('<b>','')
+    text = text.replace('</b>','')
+    text = text.replace('<wbr>','')
+    text = text.replace('<wbr/>','')
+    text = text.replace('<b>','')
+    return text
 
 
-
-
-
-# # PROMPTS
-# print('Hi, how are you!')
-# print('commands: directions, bus arrival, bus departure, general')
-# userInput = input('type the command')
-
-# if userInput == 'directions':
-#     constructor()
-#     print(f'to go from {origin} to {destination}...\n {way}')
-
-# print('I will list a series of potential question that you may want to ask so please repeat when I list the final item\n')
-
-# print('Do you want to know how to go from location A to B?')
-
-# if input('type Y for yes and N for no') == 'Y':
-#     origin = input('where are you right now?') # technically not needed cuz each hub knows its location. just for testing purposes
-#     destination = input('where are you trying to go?')
-#     constructor()
-#     # prints directionsY
-#     print(way)
-
-
-# origin = input('where are you right now?') # technically not needed cuz each hub knows its location. just for testing purposes
-# destination = input('where are you trying to go?')
-
-
-
-# print()
-# print(now)
-# print('origin '+origin)
-# print('destination '+destination)
-# print('duration '+duration)
-# print('arrival time ' + arrivalTime)
-# print(way)
-# print()
-
-
-
-# when will the next bus arrive to the bus stop?
-
-
-
-
-
-# del directions_result[]
-# points = directions_result[0]['legs'][0]['steps'][0]['polyline']['points']
-
-
-
-
-'''
-# Look up an address with reverse geocoding
-reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
-
-
-
-# Request directions via public transit
-now = datetime.now()
-directions_result = gmaps.directions("Sydney Town Hall",
-                                     "Parramatta, NSW",
-                                     mode="transit",
-                                     departure_time=now)
-
-# Validate an address with address validation
-addressvalidation_result =  gmaps.addressvalidation(['1600 Amphitheatre Pk'], 
-                                                    regionCode='US',
-                                                    locality='Mountain View', 
-                                                    enableUspsCass=True)
-'''
