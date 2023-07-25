@@ -24,6 +24,6 @@ The code posted here is a small prototype of the navigation support. Given user 
 
 ## Notes
 This is a huge project and a big chunk of time spent during SHAD was spent in the process of designing and narrowing the problem. 
-Much of the code was simply to show the adjudicators the tiny scope of the possible functionalities of our product. 
+Much of the code was simply to show the adjudicators a tiny scope of the possible functionalities of our product. 
 Therefore at this moment, this project is left at phase 1 until we have a clearer vision of the system in which the code will be programmed. 
 
