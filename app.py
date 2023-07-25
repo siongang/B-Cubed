@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from datetime import datetime
 import prompt
+import speech
 
 # Load environment variables from .env file
 load_dotenv()
@@ -11,12 +12,11 @@ load_dotenv()
 # Access the API key from the environment variable
 maps_key = os.getenv("MAPS_KEY")
 
-print(maps_key)
 gmaps = googlemaps.Client(key=maps_key)
 
 # parameters to find directions
 transport = 'transit'
-origin = 'sheppard west station'
+origin = ''
 destination = ''
 
 # the dictionary that contains all the information about the route
@@ -24,6 +24,16 @@ directions_result = ''
 
 # current time
 now = datetime.now()
+
+# removes unnecessary tags
+def removeHtmlTags(text):
+    text = text.replace('<b>','')
+    text = text.replace('</b>','')
+    text = text.replace('<wbr>','')
+    text = text.replace('<wbr/>','')
+    text = text.replace('<b>','')
+    return text
+
 
 # Request directions from the API THE MOST IMPORTANT PART OF THE PROGRAM
 def setDirectionsResult(start, end):
@@ -83,13 +93,17 @@ def constructor():
     global steps
     global directions_result 
     global way
+    global now
     way = ''
 
+    # current time
+    now = datetime.now()
+    
     # main directions result
     directions_result = setDirectionsResult(origin, destination)
     # connects to map api
     setDirectionsResult(origin,destination)
-
+    # print(directions_result)
     # duration of the route
     duration = directions_result[0]['legs'][0]['duration']['text']
     # estimated arival time of the route
@@ -113,9 +127,10 @@ def nextStep ():
 def getBusDeparture(shortName):
     global steps
     for step in steps:
-        if step['travel_mode'] == 'TRANSIT' and step['transit_details']['line']['short_name'] == shortName:
+        if step['travel_mode'] == 'TRANSIT':
+            if step['transit_details']['line']['short_name'] == shortName:
                 return step['transit_details']['departure_time']['text']
-        return 'Bus departure time was not found'
+    return 'Bus departure time was not found'
         
 
 # PROMPTS
@@ -147,6 +162,7 @@ while True:
         destination = translatedValue['keywords']['location_2']
         constructor()
         print(way)
+        speech.tts(way)
 
     # if user is asking for bus arrial timees             
     if questionType == "arrivalTimes":
@@ -155,6 +171,7 @@ while True:
         name = translatedValue['keywords']['bus_num']
         constructor()
         print(getBusDeparture(name))
+        speech.tts(getBusDeparture(name))
 
     # use exits
     if userInput == "exit":
@@ -163,15 +180,5 @@ while True:
 
 
 
-
-
-# removes unnecessary tags
-def removeHtmlTags(text):
-    text = text.replace('<b>','')
-    text = text.replace('</b>','')
-    text = text.replace('<wbr>','')
-    text = text.replace('<wbr/>','')
-    text = text.replace('<b>','')
-    return text
 
 

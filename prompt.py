@@ -89,6 +89,25 @@ def translate (question):
                                                                                                                                                                                         
         Specification 3)
         Instruction: Always follow logical coding. for example, when listing elements, list them starting with 1... -> for example, do not start locations by location_2:"asdfa". Start the list of locations with location_1:"asdfas"
+        For example: If i say: when is the 100 bus that is going to unionville highschool comming, the output should be:
+        {
+            “questiontype”: “arrivalTimes”,
+            “keywords” : {
+                “location_1” : “”unionville highschool,
+                “bus_num” : “100”
+            }	
+        }
+
+        and not 
+        {
+            “questiontype”: “arrivalTimes”,
+            “keywords” : {
+                “location_2” : “”unionville highschool,
+                “bus_num” : “100”
+            }	
+        }
+        . The second one is wrong as like i mentioned before, the labelling of keys should follow logical ordering, meaning starting from 1. So, the location keywords SHOULD have been "location_1" and NOT "location_2".                                                   
+
                                                                                           
 
                                                                                   
