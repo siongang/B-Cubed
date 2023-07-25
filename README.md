@@ -19,6 +19,11 @@ There are 3 main features:
 The code posted here is a small prototype of the navigation support. Given user input, it gives an audio output of directions and bus arrival times to a user.
 
 #### F.e:
-- How would I get from University of toronto to university of waterloo?
+- Input: How would I get from University of toronto to university of waterloo?
 - Output: directions......
+
+## Notes
+This is a huge project and a big chunk of time spent during SHAD was spent in the process of designing and narrowing the problem. 
+Much of the code was simply to show the adjudicators the tiny scope of the possible functionalities of our product. 
+Therefore at this moment, this project is left at phase 1 until we have a clearer vision of the system in which the code will be programmed. 
 
