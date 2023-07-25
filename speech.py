@@ -24,4 +24,3 @@ def tts(text):
     engine.runAndWait()
 
 
-key ='AIzaSyDJPjSk1d4yixAf-yosxQYYnXCSFjBAfy0'
