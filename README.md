@@ -21,7 +21,12 @@ The code posted here is a small prototype of the navigation support. Given user 
 #### F.e:
 - Input: How would I get from University of toronto to university of waterloo?
 - Output: directions......
-
+  
+### Technologies I learned how to use during this project
+- Google Maps API
+- Chat GPT API
+- Python!!
+  
 ## Notes
 This is a huge project and a big chunk of time spent during SHAD was spent in the process of designing and narrowing the problem. 
 Much of the code was simply to show the adjudicators a tiny scope of the possible functionalities of our product. 
