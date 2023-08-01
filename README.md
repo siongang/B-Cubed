@@ -10,7 +10,7 @@ How might we help fully blind Canadians who are feeling disconnected to feel imm
 
 ## Our Solution
 ### Introduction
-Our solution consisted of 2 modifications to public transport. The main modification of interest is a physical communication hub that is integrated into the transit's database.
+Our solution consists of 2 modifications to public transport. The main modification of interest is a physical communication hub that is integrated into the transit's database.
 The communication hub is a box with a button that people can press to communicate with a chatbot connected to the transit's database. 
 There are 3 main features:
 - Navigation support
@@ -30,7 +30,7 @@ The code posted here is a small prototype of the navigation support. Given user 
   
 ## Notes
 This is a huge project and a big chunk of time spent during SHAD was spent in the process of designing and narrowing the problem. 
-Much of the code was simply to show the adjudicators a tiny scope of the possible functionalities of our product. 
+Much of the code is simply to show the adjudicators a tiny scope of the possible functionalities of our product. 
 Therefore at this moment, this project is left at phase 1 until we have a clearer vision of the system in which the code will be programmed. 
 
 2023-07-25
